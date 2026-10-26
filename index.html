@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="One-thumb downhill skiing on a mountain that gets harder the further you go." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="icon-192.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- Added to an iPhone's home screen, it opens full screen like an app. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Powder Rush" />
+    <title>Powder Rush</title>
+    <script type="module" crossorigin src="./assets/index-CwWzQ_x3.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/dist-CMedSjkm.js">
+    <link rel="modulepreload" crossorigin href="./assets/definitions-BdWVgBTV.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-Coma9kE-.css">
+  </head>
+  <body>
+    <!-- The 3D drawing: VoiceOver skips it; the card and the top bar carry the words. -->
+    <div id="game" aria-hidden="true"></div>
+
+    <div id="hud" hidden>
+      <span id="hud-distance">0 ft</span>
+      <span id="hud-middle">❄ 0</span>
+      <span id="hud-right"></span>
+    </div>
+    <div id="flash" aria-live="polite"></div>
+    <div id="avalanche" hidden aria-hidden="true"></div>
+    <div id="coach" hidden aria-live="polite">
+      <span id="coach-hand" aria-hidden="true">👆</span>
+      <span id="coach-text"></span>
+    </div>
+
+    <div id="panel" role="dialog" aria-labelledby="title">
+      <section id="home">
+        <div class="title-row">
+          <h1 id="title">Powder Rush</h1>
+          <button id="day-night" class="pill" type="button"></button>
+        </div>
+        <p class="tagline">Outrun the avalanche.</p>
+
+        <div id="result" hidden>
+          <p id="result-big"></p>
+          <p id="result-detail"></p>
+        </div>
+
+        <button id="ski" class="primary" type="button">Ski</button>
+        <p class="stats"><span id="best"></span><span id="wallet"></span></p>
+
+        <!-- The Daily Challenge: one numbered course a day, like a newspaper puzzle. Opens its own screen. -->
+        <button id="challenge" class="challenge" type="button">
+          <span class="challenge-label">📅 Daily Challenge <span id="challenge-number"></span></span>
+          <span class="challenge-top"><span id="challenge-name"></span><span id="challenge-stars"></span></span>
+          <span id="challenge-info"></span>
+          <span id="challenge-record" hidden></span>
+        </button>
+
+        <section id="quests" aria-labelledby="quests-title">
+          <h2 id="quests-title">Quests</h2>
+          <ul id="quest-list"></ul>
+        </section>
+
+        <div class="row">
+          <button id="open-shop" type="button">Skier</button>
+          <button id="open-settings" type="button">⚙️ Settings</button>
+        </div>
+
+        <details id="more">
+          <summary>Pick a mountain</summary>
+          <label for="seed">Mountain code</label>
+          <div class="row">
+            <input id="seed" maxlength="24" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-describedby="seed-hint" />
+            <button id="new-seed" type="button">New</button>
+          </div>
+          <p id="seed-hint">Each code builds its own made-up mountain. A resort's name won't give you that resort.</p>
+          <div class="levels" id="levels"></div>
+          <button id="ski-free" type="button">Ski this mountain</button>
+        </details>
+      </section>
+
+      <section id="daily" hidden aria-labelledby="daily-title">
+        <div class="title-row">
+          <h1 id="daily-title">Daily Challenge</h1>
+          <span id="daily-number" class="daily-number"></span>
+        </div>
+        <p class="tagline" id="daily-date"></p>
+
+        <div id="daily-result" hidden>
+          <p id="daily-result-big"></p>
+          <p id="daily-result-detail"></p>
+        </div>
+
+        <div class="group">
+          <h2 id="daily-name"></h2>
+          <ul id="daily-goals"></ul>
+        </div>
+
+        <p id="daily-prize"></p>
+        <div id="daily-tries" aria-label="Your tries today"></div>
+        <button id="daily-start" class="primary" type="button"></button>
+        <p id="daily-next"></p>
+        <div class="row">
+          <button id="share" type="button" hidden>Share</button>
+          <button id="close-daily" type="button">Back</button>
+        </div>
+      </section>
+
+      <section id="welcome" hidden aria-labelledby="welcome-title">
+        <img class="welcome-icon" src="icon-192.png" alt="" width="72" height="72" />
+        <h1 id="welcome-title">Welcome to Powder Rush</h1>
+        <p class="welcome-lead">Ski down an endless mountain, grab snowflakes, and outrun the avalanche.</p>
+        <button id="welcome-tour" class="primary" type="button">Show me how · 30 seconds</button>
+        <button id="welcome-skip" type="button">Skip, let me ski</button>
+        <p class="how">You can see how to play again any time in Settings.</p>
+      </section>
+
+      <section id="settings" hidden aria-labelledby="settings-title">
+        <h1 id="settings-title">Settings</h1>
+
+        <div class="group">
+          <h2>Sound and feel</h2>
+          <div class="setting">
+            <span class="name">Sound<small>Wind, carving and chimes</small></span>
+            <button id="sound" class="switch" type="button" role="switch" aria-label="Sound"></button>
+          </div>
+          <div class="setting">
+            <span class="name">Vibration<small id="vibration-note">Little buzzes on crashes and stars</small></span>
+            <button id="vibration" class="switch" type="button" role="switch" aria-label="Vibration"></button>
+          </div>
+        </div>
+
+        <div class="group">
+          <h2>Time of day</h2>
+          <div class="segments" role="radiogroup" aria-label="Time of day">
+            <button type="button" role="radio" data-light="auto">Real sun</button>
+            <button type="button" role="radio" data-light="day">Day</button>
+            <button type="button" role="radio" data-light="night">Night</button>
+          </div>
+          <p class="note" id="light-status"></p>
+          <button id="use-location" class="link" type="button" hidden>Use my exact location for sunrise and sunset</button>
+        </div>
+
+        <div class="group">
+          <h2>How to play</h2>
+          <ul class="controls">
+            <li><span aria-hidden="true">👆</span>Slide your thumb left or right to carve; lift it to go straight</li>
+            <li><span aria-hidden="true">⤴️</span>Flick up to jump fallen trees and moguls</li>
+            <li><span aria-hidden="true">⤵️</span>Flick down for a burst of speed</li>
+            <li><span aria-hidden="true">🤸</span>In the air: flick up for a back flip, down for a front flip, sideways to spin</li>
+          </ul>
+          <button id="how-to-play" type="button">Play the quick lesson again</button>
+        </div>
+
+        <div class="group">
+          <h2>Your progress</h2>
+          <button id="reset" class="danger" type="button">Reset progress</button>
+          <p class="note" id="reset-note" hidden></p>
+        </div>
+
+        <p class="about">Powder Rush <span id="app-version"></span> by One Thumb Games<br /><a href="support.html" target="_blank" rel="noopener">Help</a> · <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="credits.html" target="_blank" rel="noopener">Credits</a><br />No ads, no accounts. Everything stays on this device.</p>
+        <button id="close-settings" class="primary" type="button">Done</button>
+      </section>
+
+      <section id="shop" hidden>
+        <div class="title-row">
+          <h1>Your skier</h1>
+          <span id="shop-wallet" class="wallet"></span>
+        </div>
+        <div class="rider-pick" role="radiogroup" aria-label="Ride on">
+          <button id="ride-ski" type="button" role="radio">⛷️ Skis</button>
+          <button id="ride-board" type="button" role="radio">🏂 Snowboard</button>
+        </div>
+        <p class="how">Tap a colour to try it on.</p>
+        <div id="shop-items"></div>
+        <div class="row">
+          <button id="buy" class="buy" type="button" hidden></button>
+          <button id="close-shop" class="primary" type="button">Done</button>
+        </div>
+      </section>
+    </div>
+
+  </body>
+</html>
