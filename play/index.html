@@ -14,10 +14,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Powder Rush" />
     <title>Powder Rush</title>
-    <script type="module" crossorigin src="./assets/index-CjbHb3Nu.js"></script>
+    <script type="module" crossorigin src="./assets/index-tieQsbRJ.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/dist-CMedSjkm.js">
     <link rel="modulepreload" crossorigin href="./assets/definitions-BdWVgBTV.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-ByApXBmk.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-CBWfjM75.css">
   </head>
   <body>
     <!-- The 3D drawing: VoiceOver skips it; the card and the top bar carry the words. -->
@@ -30,6 +30,14 @@
     </div>
     <div id="flash" aria-live="polite"></div>
     <div id="avalanche" hidden aria-hidden="true"></div>
+    <!-- After a crash: a moment's "Uh oh!" naming what happened, before the results card. -->
+    <div id="crash" hidden aria-live="assertive">
+      <div class="crash-burst" aria-hidden="true"></div>
+      <div class="crash-box">
+        <p id="crash-title"></p>
+        <p id="crash-reason"></p>
+      </div>
+    </div>
     <div id="coach" hidden aria-live="polite">
       <span id="coach-hand" aria-hidden="true">👆</span>
       <span id="coach-text"></span>
