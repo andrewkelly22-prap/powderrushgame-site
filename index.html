@@ -1,187 +1,249 @@
 <!doctype html>
+<!--
+  The website's front page (https://powderrushgame.com). tools/publish-website.sh puts it at the
+  top of the site, with the game itself at /play/ and the Help, Privacy and Credits pages beside it.
+  On launch day: set APP_STORE_URL below to the game's App Store link, and swap the "coming soon"
+  button for Apple's official "Download on the App Store" badge (from Apple's marketing tools;
+  Apple only allows the badge once the app is on the store).
+-->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="One-thumb downhill skiing on a mountain that gets harder the further you go." />
-    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Powder Rush · Outrun the avalanche</title>
+    <meta name="description" content="Powder Rush: a one-thumb skiing game for iPhone and iPad. Carve, flip and outrun the avalanche, with a new Daily Challenge every day. No ads, no accounts, no data collected." />
+    <meta name="theme-color" content="#7cc3f2" />
     <link rel="icon" type="image/png" href="icon-192.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <!-- Added to an iPhone's home screen, it opens full screen like an app. -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Powder Rush" />
-    <title>Powder Rush</title>
-    <script type="module" crossorigin src="./assets/index-CwWzQ_x3.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/dist-CMedSjkm.js">
-    <link rel="modulepreload" crossorigin href="./assets/definitions-BdWVgBTV.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-Coma9kE-.css">
+    <meta property="og:title" content="Powder Rush" />
+    <meta property="og:description" content="Carve, flip and outrun the avalanche. A new Daily Challenge every day." />
+    <meta property="og:image" content="https://powderrushgame.com/img/01-avalanche.jpg" />
+    <style>
+      :root {
+        color-scheme: light;
+        --sky-top: #6fbdf0;
+        --sky-bottom: #e6f4fd;
+        --snow: #ffffff;
+        --text: #15202c;
+        --muted: #4f5d6b;
+        --accent: #e8452c;
+        --accent-edge: #b3301b;
+        --card: rgba(255, 255, 255, 0.9);
+        --line: #d5e1ec;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --sky-top: #0b1830;
+          --sky-bottom: #1b2a44;
+          --text: #eef3f8;
+          --muted: #a7b4c3;
+          --card: rgba(16, 24, 36, 0.88);
+          --line: #2b3a50;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 55%, var(--sky-bottom) 100%);
+        color: var(--text);
+        font: 17px/1.5 ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: calc(env(safe-area-inset-top) + 32px) max(16px, env(safe-area-inset-left)) 32px;
+      }
+      header {
+        text-align: center;
+      }
+      .icon {
+        width: 112px;
+        height: 112px;
+        border-radius: 26px;
+        box-shadow: 0 10px 24px rgba(0, 40, 90, 0.25);
+      }
+      h1 {
+        margin: 14px 0 0;
+        font-size: clamp(40px, 9vw, 64px);
+        font-weight: 800;
+        line-height: 1.05;
+        color: #fff;
+        text-shadow: 0 3px 0 rgba(0, 50, 100, 0.25);
+      }
+      .tagline {
+        margin: 6px 0 0;
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 2px 0 rgba(0, 50, 100, 0.2);
+      }
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin: 26px 0 8px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 240px;
+        padding: 15px 26px;
+        border-radius: 999px;
+        font-size: 19px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+      .button.play {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 5px 0 var(--accent-edge);
+      }
+      .button.play:active {
+        transform: translateY(3px);
+        box-shadow: 0 2px 0 var(--accent-edge);
+      }
+      .button.store {
+        background: #111;
+        color: #fff;
+        box-shadow: 0 5px 0 #000;
+      }
+      .button.store[aria-disabled='true'] {
+        background: rgba(17, 17, 17, 0.75);
+        cursor: default;
+      }
+      .note {
+        margin: 6px 0 0;
+        text-align: center;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      .shots {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin: 34px 0;
+        overflow-x: auto;
+        padding: 4px 4px 12px;
+        scroll-snap-type: x mandatory;
+      }
+      .shots img {
+        flex: none;
+        width: min(260px, 70vw);
+        aspect-ratio: 1206 / 2622;
+        border-radius: 28px;
+        border: 6px solid #fff;
+        box-shadow: 0 12px 28px rgba(0, 40, 90, 0.22);
+        scroll-snap-align: center;
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 14px;
+      }
+      .feature {
+        padding: 18px 20px;
+        border-radius: 24px;
+        background: var(--card);
+        border: 1px solid var(--line);
+      }
+      .feature h2 {
+        margin: 0 0 4px;
+        font-size: 19px;
+        font-weight: 800;
+      }
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+      }
+      footer {
+        margin-top: 36px;
+        padding: 22px 0 calc(env(safe-area-inset-bottom) + 12px);
+        border-top: 1px solid var(--line);
+        text-align: center;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 18px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      footer a {
+        color: var(--accent);
+      }
+      footer p {
+        margin: 4px 0;
+      }
+    </style>
   </head>
   <body>
-    <!-- The 3D drawing: VoiceOver skips it; the card and the top bar carry the words. -->
-    <div id="game" aria-hidden="true"></div>
-
-    <div id="hud" hidden>
-      <span id="hud-distance">0 ft</span>
-      <span id="hud-middle">❄ 0</span>
-      <span id="hud-right"></span>
-    </div>
-    <div id="flash" aria-live="polite"></div>
-    <div id="avalanche" hidden aria-hidden="true"></div>
-    <div id="coach" hidden aria-live="polite">
-      <span id="coach-hand" aria-hidden="true">👆</span>
-      <span id="coach-text"></span>
-    </div>
-
-    <div id="panel" role="dialog" aria-labelledby="title">
-      <section id="home">
-        <div class="title-row">
-          <h1 id="title">Powder Rush</h1>
-          <button id="day-night" class="pill" type="button"></button>
-        </div>
+    <main>
+      <header>
+        <img class="icon" src="icon-192.png" alt="" width="112" height="112" />
+        <h1>Powder Rush</h1>
         <p class="tagline">Outrun the avalanche.</p>
-
-        <div id="result" hidden>
-          <p id="result-big"></p>
-          <p id="result-detail"></p>
+        <div class="buttons">
+          <!-- Launch day: replace this with Apple's "Download on the App Store" badge linking to the app. -->
+          <a class="button store" id="app-store" aria-disabled="true">Coming soon to the App Store</a>
+          <a class="button play" href="play/">Play free in your browser</a>
         </div>
+        <p class="note">For iPhone and iPad. No ads, no accounts, no data collected.</p>
+      </header>
 
-        <button id="ski" class="primary" type="button">Ski</button>
-        <p class="stats"><span id="best"></span><span id="wallet"></span></p>
-
-        <!-- The Daily Challenge: one numbered course a day, like a newspaper puzzle. Opens its own screen. -->
-        <button id="challenge" class="challenge" type="button">
-          <span class="challenge-label">📅 Daily Challenge <span id="challenge-number"></span></span>
-          <span class="challenge-top"><span id="challenge-name"></span><span id="challenge-stars"></span></span>
-          <span id="challenge-info"></span>
-          <span id="challenge-record" hidden></span>
-        </button>
-
-        <section id="quests" aria-labelledby="quests-title">
-          <h2 id="quests-title">Quests</h2>
-          <ul id="quest-list"></ul>
-        </section>
-
-        <div class="row">
-          <button id="open-shop" type="button">Skier</button>
-          <button id="open-settings" type="button">⚙️ Settings</button>
-        </div>
-
-        <details id="more">
-          <summary>Pick a mountain</summary>
-          <label for="seed">Mountain code</label>
-          <div class="row">
-            <input id="seed" maxlength="24" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-describedby="seed-hint" />
-            <button id="new-seed" type="button">New</button>
-          </div>
-          <p id="seed-hint">Each code builds its own made-up mountain. A resort's name won't give you that resort.</p>
-          <div class="levels" id="levels"></div>
-          <button id="ski-free" type="button">Ski this mountain</button>
-        </details>
+      <section class="shots" aria-label="Screenshots">
+        <img src="img/01-avalanche.jpg" alt="A skier racing downhill through pine trees with the avalanche close behind" loading="lazy" />
+        <img src="img/02-flip.jpg" alt="A skier mid back flip off a snow ramp" loading="lazy" />
+        <img src="img/06-daily.jpg" alt="The Daily Challenge screen with three stars and a row of coloured squares for each try" loading="lazy" />
       </section>
 
-      <section id="daily" hidden aria-labelledby="daily-title">
-        <div class="title-row">
-          <h1 id="daily-title">Daily Challenge</h1>
-          <span id="daily-number" class="daily-number"></span>
+      <section class="features">
+        <div class="feature">
+          <h2>📅 A new Daily Challenge</h2>
+          <p>One numbered course a day, the same for everyone, with a finish line. Three tries, three stars and a big snowflake prize. Share your squares with friends.</p>
         </div>
-        <p class="tagline" id="daily-date"></p>
-
-        <div id="daily-result" hidden>
-          <p id="daily-result-big"></p>
-          <p id="daily-result-detail"></p>
+        <div class="feature">
+          <h2>👍 One-thumb skiing</h2>
+          <p>Slide to carve, flick up to jump, flick down for speed. Back flips, front flips and spins off natural snow ramps.</p>
         </div>
-
-        <div class="group">
-          <h2 id="daily-name"></h2>
-          <ul id="daily-goals"></ul>
+        <div class="feature">
+          <h2>🏔️ An endless mountain</h2>
+          <p>Green to double black in a single run: glades, powder, moguls, rocky chutes and fallen trees, by day or by headlamp at night.</p>
         </div>
-
-        <p id="daily-prize"></p>
-        <div id="daily-tries" aria-label="Your tries today"></div>
-        <button id="daily-start" class="primary" type="button"></button>
-        <p id="daily-next"></p>
-        <div class="row">
-          <button id="share" type="button" hidden>Share</button>
-          <button id="close-daily" type="button">Back</button>
+        <div class="feature">
+          <h2>🎿 Your skier, your style</h2>
+          <p>Collect snowflakes and dress up in the chalet: jackets, goggles, hats and a crown, on skis or a snowboard.</p>
         </div>
       </section>
 
-      <section id="welcome" hidden aria-labelledby="welcome-title">
-        <img class="welcome-icon" src="icon-192.png" alt="" width="72" height="72" />
-        <h1 id="welcome-title">Welcome to Powder Rush</h1>
-        <p class="welcome-lead">Ski down an endless mountain, grab snowflakes, and outrun the avalanche.</p>
-        <button id="welcome-tour" class="primary" type="button">Show me how · 30 seconds</button>
-        <button id="welcome-skip" type="button">Skip, let me ski</button>
-        <p class="how">You can see how to play again any time in Settings.</p>
-      </section>
-
-      <section id="settings" hidden aria-labelledby="settings-title">
-        <h1 id="settings-title">Settings</h1>
-
-        <div class="group">
-          <h2>Sound and feel</h2>
-          <div class="setting">
-            <span class="name">Sound<small>Wind, carving and chimes</small></span>
-            <button id="sound" class="switch" type="button" role="switch" aria-label="Sound"></button>
-          </div>
-          <div class="setting">
-            <span class="name">Vibration<small id="vibration-note">Little buzzes on crashes and stars</small></span>
-            <button id="vibration" class="switch" type="button" role="switch" aria-label="Vibration"></button>
-          </div>
-        </div>
-
-        <div class="group">
-          <h2>Time of day</h2>
-          <div class="segments" role="radiogroup" aria-label="Time of day">
-            <button type="button" role="radio" data-light="auto">Real sun</button>
-            <button type="button" role="radio" data-light="day">Day</button>
-            <button type="button" role="radio" data-light="night">Night</button>
-          </div>
-          <p class="note" id="light-status"></p>
-          <button id="use-location" class="link" type="button" hidden>Use my exact location for sunrise and sunset</button>
-        </div>
-
-        <div class="group">
-          <h2>How to play</h2>
-          <ul class="controls">
-            <li><span aria-hidden="true">👆</span>Slide your thumb left or right to carve; lift it to go straight</li>
-            <li><span aria-hidden="true">⤴️</span>Flick up to jump fallen trees and moguls</li>
-            <li><span aria-hidden="true">⤵️</span>Flick down for a burst of speed</li>
-            <li><span aria-hidden="true">🤸</span>In the air: flick up for a back flip, down for a front flip, sideways to spin</li>
-          </ul>
-          <button id="how-to-play" type="button">Play the quick lesson again</button>
-        </div>
-
-        <div class="group">
-          <h2>Your progress</h2>
-          <button id="reset" class="danger" type="button">Reset progress</button>
-          <p class="note" id="reset-note" hidden></p>
-        </div>
-
-        <p class="about">Powder Rush <span id="app-version"></span> by One Thumb Games<br /><a href="support.html" target="_blank" rel="noopener">Help</a> · <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="credits.html" target="_blank" rel="noopener">Credits</a><br />No ads, no accounts. Everything stays on this device.</p>
-        <button id="close-settings" class="primary" type="button">Done</button>
-      </section>
-
-      <section id="shop" hidden>
-        <div class="title-row">
-          <h1>Your skier</h1>
-          <span id="shop-wallet" class="wallet"></span>
-        </div>
-        <div class="rider-pick" role="radiogroup" aria-label="Ride on">
-          <button id="ride-ski" type="button" role="radio">⛷️ Skis</button>
-          <button id="ride-board" type="button" role="radio">🏂 Snowboard</button>
-        </div>
-        <p class="how">Tap a colour to try it on.</p>
-        <div id="shop-items"></div>
-        <div class="row">
-          <button id="buy" class="buy" type="button" hidden></button>
-          <button id="close-shop" class="primary" type="button">Done</button>
-        </div>
-      </section>
-    </div>
-
+      <footer>
+        <nav aria-label="About">
+          <a href="support.html">Help</a>
+          <a href="privacy.html">Privacy policy</a>
+          <a href="credits.html">Credits and licences</a>
+          <a href="mailto:development@powderrushgame.com">development@powderrushgame.com</a>
+        </nav>
+        <p>Powder Rush © 2026 Andrew Kelly (One Thumb Games). Every mountain in the game is made up.</p>
+        <p>Apple, iPhone, iPad and App Store are trademarks of Apple Inc.</p>
+      </footer>
+    </main>
+    <script>
+      // Launch day: put the App Store link here (it looks like https://apps.apple.com/app/id1234567890).
+      const APP_STORE_URL = '';
+      if (APP_STORE_URL) {
+        const store = document.getElementById('app-store');
+        store.href = APP_STORE_URL;
+        store.textContent = 'Download on the App Store';
+        store.removeAttribute('aria-disabled');
+      }
+    </script>
   </body>
 </html>
