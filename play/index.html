@@ -14,12 +14,43 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Powder Rush" />
     <title>Powder Rush</title>
-    <script type="module" crossorigin src="./assets/index-tieQsbRJ.js"></script>
+    <!-- The studio's logo while the game starts. Styled here, not in style.css, so it shows from the very first frame. -->
+    <style>#studio{z-index:100;background:#fffaf3;flex-direction:column;justify-content:center;align-items:center;gap:18px;font-family:ui-rounded,SF Pro Rounded,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;transition:opacity .35s;animation:.35s 4s forwards studio-away;display:flex;position:fixed;inset:0}#studio[hidden]{display:none}#studio.leaving{opacity:0;pointer-events:none}#studio svg{width:112px;height:auto;animation:.5s cubic-bezier(.34,1.56,.64,1) both studio-pop}#studio p{text-align:center;color:#2b2118;margin:0;font-size:34px;font-weight:800;line-height:1;animation:.5s .12s both studio-rise}#studio p span{color:#ef7d2d;letter-spacing:.45em;text-indent:.45em;text-transform:uppercase;margin-top:10px;font-size:15px;font-weight:700;display:block}@keyframes studio-pop{0%{opacity:0;transform:scale(.8)}}@keyframes studio-rise{0%{opacity:0;transform:translateY(8px)}}@keyframes studio-away{to{opacity:0;visibility:hidden}}@media (prefers-reduced-motion:reduce){#studio svg,#studio p{animation-name:studio-fade}@keyframes studio-fade{0%{opacity:0}}}</style>
+    <script type="module" crossorigin src="./assets/index-r31D3cLV.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/dist-CMedSjkm.js">
     <link rel="modulepreload" crossorigin href="./assets/definitions-BdWVgBTV.js">
     <link rel="stylesheet" crossorigin href="./assets/index-CBWfjM75.css">
   </head>
   <body>
+    <!-- Happy Acorn Studio's logo for about 1.5 seconds as the game opens (a tap skips it). -->
+    <div id="studio" role="img" aria-label="Happy Acorn Studio">
+      <svg viewBox="36 18 128 178" aria-hidden="true">
+        <rect x="96" y="26" width="10" height="26" rx="5" fill="#4a2a14" transform="rotate(-10 100 40)" />
+        <path d="M56 96 h88 c0 48 -20 80 -44 94 c-24 -14 -44 -46 -44 -94 z" fill="#ef7d2d" />
+        <path d="M44 98 c0 -32 25 -52 56 -52 c31 0 56 20 56 52 c0 8 -6 13 -14 13 h-84 c-8 0 -14 -5 -14 -13 z" fill="#6b3e1f" />
+        <path d="M60 84 q40 -18 80 0" fill="none" stroke="#8a5530" stroke-width="5" stroke-linecap="round" />
+        <path d="M88 124 v40 l34 -20 z" fill="#ffffff" stroke="#ffffff" stroke-width="8" stroke-linejoin="round" />
+      </svg>
+      <p aria-hidden="true">happy acorn<span>studio</span></p>
+    </div>
+    <script>
+      // Fades out once the logo has shown for 1.5 seconds and the game is ready
+      // (main.ts calls window.studioReady), or straight away on a tap.
+      (function () {
+        var studio = document.getElementById('studio');
+        var shownLongEnough = false;
+        var gameReady = false;
+        function leave() {
+          if (studio.classList.contains('leaving')) return;
+          studio.classList.add('leaving');
+          setTimeout(function () { studio.hidden = true; }, 360);
+        }
+        function maybeLeave() { if (shownLongEnough && gameReady) leave(); }
+        setTimeout(function () { shownLongEnough = true; maybeLeave(); }, 1500);
+        window.studioReady = function () { gameReady = true; maybeLeave(); };
+        studio.addEventListener('pointerdown', function () { shownLongEnough = true; maybeLeave(); });
+      })();
+    </script>
     <!-- The 3D drawing: VoiceOver skips it; the card and the top bar carry the words. -->
     <div id="game" aria-hidden="true"></div>
 
