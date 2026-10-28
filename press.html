@@ -1,0 +1,268 @@
+<!doctype html>
+<!--
+  The press kit (https://powderrushgame.com/press.html), for game and ski writers and creators: facts,
+  descriptions to copy, the icon, logo, screenshots and gameplay videos (in site/press/), and contact.
+  The stills come from the videos made by tools/make-videos.sh; publish-website.sh copies the videos
+  themselves in from store/videos/. Update the release
+  date and the App Store link on launch day.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Powder Rush · Press kit</title>
+    <meta name="description" content="Press kit for Powder Rush, a one-thumb skiing game for iPhone and iPad by Happy Acorn Studio: facts, descriptions, icon, screenshots and gameplay videos." />
+    <meta name="theme-color" content="#7cc3f2" />
+    <link rel="icon" type="image/png" href="icon-192.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:title" content="Powder Rush · Press kit" />
+    <meta property="og:image" content="https://powderrushgame.com/img/01-avalanche.jpg" />
+    <style>
+      :root {
+        color-scheme: light;
+        --sky-top: #6fbdf0;
+        --sky-bottom: #e6f4fd;
+        --text: #15202c;
+        --muted: #4f5d6b;
+        --accent: #c7361f;
+        --card: rgba(255, 255, 255, 0.92);
+        --line: #d5e1ec;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --sky-top: #0b1830;
+          --sky-bottom: #1b2a44;
+          --text: #eef3f8;
+          --muted: #a7b4c3;
+          --accent: #ff8a73;
+          --card: rgba(16, 24, 36, 0.9);
+          --line: #2b3a50;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 360px, var(--sky-bottom) 100%);
+        color: var(--text);
+        font: 17px/1.55 ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: calc(env(safe-area-inset-top) + 28px) max(16px, env(safe-area-inset-left)) 32px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+      header img {
+        width: 88px;
+        height: 88px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 40, 90, 0.25);
+        flex: none;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(30px, 7vw, 44px);
+        font-weight: 800;
+        line-height: 1.05;
+        color: #fff;
+        text-shadow: 0 3px 0 rgba(0, 50, 100, 0.25);
+      }
+      header p {
+        margin: 4px 0 0;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 2px 0 rgba(0, 50, 100, 0.2);
+      }
+      section {
+        margin: 0 0 16px;
+        padding: 20px 22px;
+        border-radius: 24px;
+        background: var(--card);
+        border: 1px solid var(--line);
+      }
+      h2 {
+        margin: 0 0 10px;
+        font-size: 21px;
+        font-weight: 800;
+      }
+      h3 {
+        margin: 16px 0 4px;
+        font-size: 16px;
+        font-weight: 800;
+      }
+      p {
+        margin: 0 0 10px;
+      }
+      a {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      dl {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 6px 18px;
+        margin: 0;
+      }
+      dt {
+        font-weight: 800;
+      }
+      dd {
+        margin: 0;
+        color: var(--muted);
+      }
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin: 4px 0;
+      }
+      .copy {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(127, 160, 190, 0.08);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+        gap: 12px;
+      }
+      .grid a {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .grid img,
+      .grid video {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        margin-bottom: 4px;
+        background: #000;
+      }
+      .download {
+        display: inline-block;
+        margin-top: 4px;
+        padding: 11px 20px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+      }
+      footer {
+        margin-top: 24px;
+        text-align: center;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      @media (max-width: 520px) {
+        dl {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+        dd {
+          margin-bottom: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="press/icon-1024.png" alt="" width="88" height="88" />
+        <div>
+          <h1>Powder Rush press kit</h1>
+          <p>Outrun the avalanche.</p>
+        </div>
+      </header>
+
+      <section aria-labelledby="facts">
+        <h2 id="facts">Fact sheet</h2>
+        <dl>
+          <dt>Developer</dt>
+          <dd>Happy Acorn Studio (Andrew Kelly), Ohio, USA. A one-person studio.</dd>
+          <dt>Release</dt>
+          <dd>Coming soon to the App Store. Playable now in a web browser at <a href="https://powderrushgame.com/play/">powderrushgame.com/play</a>.</dd>
+          <dt>Platforms</dt>
+          <dd>iPhone and iPad (iOS 15 or later), and any modern web browser.</dd>
+          <dt>Price</dt>
+          <dd>Free. No ads, no in-app purchases at launch, no accounts.</dd>
+          <dt>Privacy</dt>
+          <dd>Collects no data at all (App Store label: Data Not Collected). Progress stays on the device.</dd>
+          <dt>Download size</dt>
+          <dd>About 3 MB.</dd>
+          <dt>Age rating</dt>
+          <dd>4+</dd>
+          <dt>Website</dt>
+          <dd><a href="https://powderrushgame.com">powderrushgame.com</a></dd>
+          <dt>Press contact</dt>
+          <dd><a href="mailto:development@powderrushgame.com">development@powderrushgame.com</a></dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="describe">
+        <h2 id="describe">Describing the game</h2>
+        <h3>In one line</h3>
+        <p class="copy">Powder Rush is a free one-thumb skiing game for iPhone: carve, flip and outrun the avalanche down an endless mountain, with a new Daily Challenge every day.</p>
+        <h3>In a paragraph</h3>
+        <p class="copy">The slope cracks, and the avalanche is right behind you. Powder Rush is endless downhill skiing and snowboarding through fresh powder, seen from just behind the rider and played with one thumb: slide to carve, flick up to jump, flick down for speed. Every run is a new mountain that starts on a green circle and climbs through blue and black to double black, with glades, moguls, fallen trees, snow ramps for back flips and 720s, and narrow rocky chutes. A numbered Daily Challenge, the same course for everyone, gives three tries a day at a finish line and three stars, with a Wordle-style result to share. It's free, with no ads, no accounts and no data collected.</p>
+        <h3>Things worth knowing</h3>
+        <ul>
+          <li>Made by one person as a side project, in a light cartoon 3D style that keeps the download to about 3 MB.</li>
+          <li>Every mountain is built from a short code, so friends can ski the same one; every mountain is made up.</li>
+          <li>Day or night follows the real sun where the player is: after sunset, runs are by headlamp.</li>
+          <li>Skis or snowboard, both free. Snowflakes collected on the way buy jackets, hats and a crown in a cosy chalet.</li>
+          <li>Follows the iPhone's Reduce Motion setting; buttons are labelled for VoiceOver.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="videos">
+        <h2 id="videos">Gameplay videos</h2>
+        <p>Recorded in the game itself, 1080×1920, silent (add your own music). Free to use in coverage.</p>
+        <div class="grid">
+          <a href="press/clip-avalanche.mp4"><video src="press/clip-avalanche.mp4" poster="press/poster-avalanche.jpg" muted playsinline preload="none"></video>Outrunning the avalanche</a>
+          <a href="press/clip-flips.mp4"><video src="press/clip-flips.mp4" poster="press/poster-flips.jpg" muted playsinline preload="none"></video>Ramps and flips</a>
+          <a href="press/clip-chute.mp4"><video src="press/clip-chute.mp4" poster="press/poster-chute.jpg" muted playsinline preload="none"></video>A rocky chute</a>
+          <a href="press/clip-wipeout.mp4"><video src="press/clip-wipeout.mp4" poster="press/poster-wipeout.jpg" muted playsinline preload="none"></video>A flip too late</a>
+          <a href="press/clip-daily.mp4"><video src="press/clip-daily.mp4" poster="press/poster-daily.jpg" muted playsinline preload="none"></video>Daily Challenge finish</a>
+          <a href="press/clip-chalet.mp4"><video src="press/clip-chalet.mp4" poster="press/poster-chalet.jpg" muted playsinline preload="none"></video>Dressing up in the chalet</a>
+        </div>
+      </section>
+
+      <section aria-labelledby="images">
+        <h2 id="images">Screenshots, icon and logo</h2>
+        <div class="grid">
+          <a href="press/screenshot-avalanche.jpg"><img src="press/screenshot-avalanche.jpg" alt="Racing downhill with the avalanche close behind" loading="lazy" />Avalanche</a>
+          <a href="press/screenshot-flip.jpg"><img src="press/screenshot-flip.jpg" alt="A back flip off a snow ramp" loading="lazy" />Flip</a>
+          <a href="press/screenshot-chute.jpg"><img src="press/screenshot-chute.jpg" alt="Skiing between the rock walls of a narrow chute" loading="lazy" />Chute</a>
+          <a href="press/screenshot-chalet.jpg"><img src="press/screenshot-chalet.jpg" alt="The skier in a crown in the chalet changing room" loading="lazy" />Chalet</a>
+          <a href="press/icon-1024.png"><img src="press/icon-1024.png" alt="The Powder Rush app icon: a snowy peak with a red ski track" loading="lazy" />App icon</a>
+          <a href="press/happy-acorn-studio-logo.png"><img src="press/happy-acorn-studio-logo.png" alt="The Happy Acorn Studio logo: an orange acorn with a play button" loading="lazy" />Studio logo</a>
+        </div>
+        <p style="margin-top: 14px"><a class="download" href="press/powder-rush-press-kit.zip">Download the pictures and fact sheet (.zip)</a></p>
+      </section>
+
+      <section aria-labelledby="contact">
+        <h2 id="contact">Contact</h2>
+        <p>For review copies, questions or interviews: <a href="mailto:development@powderrushgame.com">development@powderrushgame.com</a>. Creators are welcome to stream and post the game, no permission needed.</p>
+      </section>
+
+      <footer>
+        <p><a href="./">Powder Rush home</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Help</a></p>
+        <p>Powder Rush © 2026 Andrew Kelly (Happy Acorn Studio). Apple, iPhone, iPad and App Store are trademarks of Apple Inc.</p>
+      </footer>
+    </main>
+  </body>
+</html>

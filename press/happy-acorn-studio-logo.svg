@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-label="Happy Acorn Studio logo idea 3: an acorn with a play button">
+  <rect width="640" height="220" rx="28" fill="#fffaf3"/>
+  <g transform="translate(20 10)">
+    <rect x="96" y="26" width="10" height="26" rx="5" fill="#4a2a14" transform="rotate(-10 100 40)"/>
+    <path d="M56 96 h88 c0 48 -20 80 -44 94 c-24 -14 -44 -46 -44 -94 z" fill="#ef7d2d"/>
+    <path d="M44 98 c0 -32 25 -52 56 -52 c31 0 56 20 56 52 c0 8 -6 13 -14 13 h-84 c-8 0 -14 -5 -14 -13 z" fill="#6b3e1f"/>
+    <path d="M60 84 q40 -18 80 0" fill="none" stroke="#8a5530" stroke-width="5" stroke-linecap="round"/>
+    <path d="M88 124 v40 l34 -20 z" fill="#ffffff" stroke="#ffffff" stroke-width="8" stroke-linejoin="round"/>
+  </g>
+  <text x="230" y="112" font-family="ui-rounded, 'SF Pro Rounded', Nunito, 'Arial Rounded MT Bold', system-ui, sans-serif" font-size="58" font-weight="800" fill="#2b2118">happy acorn</text>
+  <text x="233" y="156" font-family="ui-rounded, 'SF Pro Rounded', Nunito, 'Arial Rounded MT Bold', system-ui, sans-serif" font-size="24" font-weight="700" letter-spacing="11" fill="#ef7d2d">STUDIO</text>
+</svg>
