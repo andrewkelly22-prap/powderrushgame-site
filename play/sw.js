@@ -1,7 +1,7 @@
 // Keeps a copy of the game on the device so it plays with no signal. Each file is fetched fresh
 // when there is a connection (so updates arrive) and saved; with no connection the saved copy is
 // used. Only the game's own files are handled. Registered by main.ts in the finished game only.
-const CACHE = 'powder-line-v2';
+const CACHE = 'powder-line-v3';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(['./', './index.html', './manifest.webmanifest', './icon-192.png', './apple-touch-icon.png'])));
