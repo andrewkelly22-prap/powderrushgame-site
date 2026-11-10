@@ -16,10 +16,10 @@
     <title>Powder Rush</title>
     <!-- The studio's logo while the game starts. Styled here, not in style.css, so it shows from the very first frame. -->
     <style>#studio{z-index:100;background:#fffaf3;flex-direction:column;justify-content:center;align-items:center;gap:18px;font-family:ui-rounded,SF Pro Rounded,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;transition:opacity .35s;animation:.35s 4s forwards studio-away;display:flex;position:fixed;inset:0}#studio[hidden]{display:none}#studio.leaving{opacity:0;pointer-events:none}#studio svg{width:112px;height:auto;animation:.5s cubic-bezier(.34,1.56,.64,1) both studio-pop}#studio p{text-align:center;color:#2b2118;margin:0;font-size:34px;font-weight:800;line-height:1;animation:.5s .12s both studio-rise}#studio p span{color:#ef7d2d;letter-spacing:.45em;text-indent:.45em;text-transform:uppercase;margin-top:10px;font-size:15px;font-weight:700;display:block}@keyframes studio-pop{0%{opacity:0;transform:scale(.8)}}@keyframes studio-rise{0%{opacity:0;transform:translateY(8px)}}@keyframes studio-away{to{opacity:0;visibility:hidden}}@media (prefers-reduced-motion:reduce){#studio svg,#studio p{animation-name:studio-fade}@keyframes studio-fade{0%{opacity:0}}}</style>
-    <script type="module" crossorigin src="./assets/index-K8SUQheS.js"></script>
+    <script type="module" crossorigin src="./assets/index-By0LjNfu.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/dist-CMedSjkm.js">
     <link rel="modulepreload" crossorigin href="./assets/definitions-BdWVgBTV.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-h5Hv-Jdk.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-GGmzPGGs.css">
   </head>
   <body>
     <!-- Happy Acorn Studio's logo for about 1.5 seconds as the game opens (a tap skips it). -->
@@ -59,6 +59,10 @@
       <span id="hud-middle">❄ 0</span>
       <span id="hud-right"></span>
     </div>
+    <!-- Power-ups on now, each with a bar that runs down. -->
+    <div id="powers-on" aria-live="polite"></div>
+    <!-- This run's progress on the three quests (9 November 2026). -->
+    <div id="quest-track"></div>
     <div id="flash" aria-live="polite"></div>
     <div id="avalanche" hidden aria-hidden="true"></div>
     <!-- After a crash: a moment's "Uh oh!" naming what happened, before the results card. -->
@@ -68,57 +72,83 @@
         <p id="crash-title"></p>
         <p id="crash-reason"></p>
       </div>
+      <!-- Keep going? A revive for snowflakes, offered for a few seconds. -->
+      <div id="revive" hidden>
+        <button id="revive-yes" type="button"><span class="revive-ring" aria-hidden="true"></span><span class="revive-words">Keep going?</span><span id="revive-price" class="revive-price"></span></button>
+        <button id="revive-no" type="button">No thanks</button>
+      </div>
     </div>
+    <div id="lesson-bar" hidden aria-live="polite"><span>Lesson</span><b id="lesson-step">1 of 4</b><span id="lesson-dots" aria-hidden="true"></span></div>
     <div id="coach" hidden aria-live="polite">
       <span id="coach-hand" aria-hidden="true">👆</span>
       <span id="coach-text"></span>
     </div>
 
     <div id="panel" role="dialog" aria-labelledby="title">
+      <!-- The home screen (Layout B, Andrew, 5 November 2026): the character in the chalet behind,
+           the Daily ticket at the top, buttons down the sides and one big button at the bottom. -->
       <section id="home">
-        <div class="title-row">
-          <h1 id="title">Powder Rush</h1>
-          <button id="day-night" class="pill" type="button"></button>
+        <h1 id="title" class="visually-hidden">Powder Rush</h1>
+        <div class="lobby-top">
+          <button id="best" class="chip" type="button" hidden></button>
+          <button id="day-night" class="chip round" type="button"></button>
+          <button id="wallet" class="chip" type="button"></button>
         </div>
-        <p class="tagline">Outrun the avalanche.</p>
 
-        <div id="result" hidden>
+        <!-- The Daily Challenge ticket: one numbered mountain a day, three goals. Opens its own screen. -->
+        <button id="challenge" class="ticket" type="button">
+          <span id="challenge-time" class="ticket-time"></span>
+          <span class="ticket-label">📅 Daily Challenge <span id="challenge-number"></span><span id="challenge-record" hidden></span></span>
+          <span id="challenge-name" class="ticket-name"></span>
+          <span class="ticket-row"><span id="challenge-stars" class="ticket-stars"></span><span id="challenge-prize" class="ticket-prize"></span><span id="challenge-info" class="ticket-info"></span></span>
+        </button>
+
+        <div class="lobby-sides">
+        <div class="lobby-side left">
+          <button id="open-shop" class="tile" type="button"><span class="tile-icon" aria-hidden="true">🧥</span>Locker</button>
+          <button id="open-powers" class="tile" type="button"><span class="tile-icon" aria-hidden="true">⚡</span>Power-ups</button>
+          <button id="open-records" class="tile" type="button"><span class="tile-icon" aria-hidden="true">🏆</span>Top runs</button>
+        </div>
+        <div class="lobby-side right">
+          <button id="open-quests" class="tile" type="button"><span class="tile-icon" aria-hidden="true">🎯</span>Quests<span id="quest-badge" class="badge" aria-hidden="true"></span></button>
+          <button id="open-settings" class="tile" type="button"><span class="tile-icon" aria-hidden="true">⚙️</span>Settings</button>
+        </div>
+        </div>
+
+        <div class="lobby-bottom">
+          <div class="ride-switch" role="radiogroup" aria-label="Skis or snowboard">
+            <button id="home-ski" type="button" role="radio">⛷️ Skis</button>
+            <button id="home-board" type="button" role="radio">🏂 Board</button>
+          </div>
+          <button id="ski" class="play" type="button">SKI!</button>
+        </div>
+      </section>
+
+      <!-- After a run: the score, then go again or go home. -->
+      <section id="after" hidden aria-labelledby="result-big">
+        <div id="result">
           <p id="result-big"></p>
           <p id="result-detail"></p>
         </div>
+        <button id="again" class="primary" type="button">Go again</button>
+        <button id="go-home" type="button">Home</button>
+      </section>
 
-        <button id="ski" class="primary" type="button">Ski</button>
-        <p class="stats"><span id="best"></span><span id="wallet"></span></p>
+      <section id="quests-screen" hidden aria-labelledby="quests-title">
+        <h1 id="quests-title">Quests</h1>
+        <p class="note">Do one in a single run for extra ❄. New ones come after each run.</p>
+        <ul id="quest-list"></ul>
+        <button id="close-quests" class="primary" type="button">Done</button>
+      </section>
 
-        <!-- The Daily Challenge: one numbered course a day, like a newspaper puzzle. Opens its own screen. -->
-        <button id="challenge" class="challenge" type="button">
-          <span class="challenge-label">📅 Daily Challenge <span id="challenge-number"></span></span>
-          <span class="challenge-top"><span id="challenge-name"></span><span id="challenge-stars"></span></span>
-          <span id="challenge-info"></span>
-          <span id="challenge-record" hidden></span>
-        </button>
-
-        <section id="quests" aria-labelledby="quests-title">
-          <h2 id="quests-title">Quests</h2>
-          <ul id="quest-list"></ul>
-        </section>
-
-        <div class="row">
-          <button id="open-shop" type="button">Skier</button>
-          <button id="open-settings" type="button">⚙️ Settings</button>
+      <section id="powers" hidden aria-labelledby="powers-title">
+        <div class="title-row">
+          <h1 id="powers-title">Power-ups</h1>
+          <span id="powers-wallet" class="wallet"></span>
         </div>
-
-        <details id="more">
-          <summary>Pick a mountain</summary>
-          <label for="seed">Mountain code</label>
-          <div class="row">
-            <input id="seed" maxlength="24" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-describedby="seed-hint" />
-            <button id="new-seed" type="button">New</button>
-          </div>
-          <p id="seed-hint">Each code builds its own made-up mountain. A resort's name won't give you that resort.</p>
-          <div class="levels" id="levels"></div>
-          <button id="ski-free" type="button">Ski this mountain</button>
-        </details>
+        <p class="note">Grab them on the slope. Each upgrade makes one last longer.</p>
+        <ul id="power-list"></ul>
+        <button id="close-powers" class="primary" type="button">Done</button>
       </section>
 
       <section id="daily" hidden aria-labelledby="daily-title">
@@ -157,6 +187,14 @@
         <p class="how">You can see how to play again any time in Settings.</p>
       </section>
 
+      <section id="ready" hidden aria-labelledby="ready-title">
+        <p class="ready-burst" aria-hidden="true">🎉</p>
+        <h1 id="ready-title">You're ready!</h1>
+        <p class="welcome-lead">The lesson is done. Now the avalanche chases you for real: ski as far as you can.</p>
+        <button id="ready-go" class="primary" type="button">Ski for real</button>
+        <button id="ready-home" type="button">Home</button>
+      </section>
+
       <section id="settings" hidden aria-labelledby="settings-title">
         <h1 id="settings-title">Settings</h1>
 
@@ -184,6 +222,18 @@
         </div>
 
         <div class="group">
+          <h2>Pick a mountain</h2>
+          <label for="seed">Mountain code</label>
+          <div class="row">
+            <input id="seed" maxlength="24" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-describedby="seed-hint" />
+            <button id="new-seed" type="button">New</button>
+          </div>
+          <p id="seed-hint">Each code builds its own made-up mountain. A resort's name won't give you that resort.</p>
+          <div class="levels" id="levels"></div>
+          <button id="ski-free" type="button">Ski this mountain</button>
+        </div>
+
+        <div class="group">
           <h2>How to play</h2>
           <ul class="controls">
             <li><span aria-hidden="true">👆</span>Slide your thumb left or right to carve; lift it to go straight</li>
@@ -202,6 +252,15 @@
 
         <p class="about">Powder Rush <span id="app-version"></span> by Happy Acorn Studio<br /><a href="support.html" target="_blank" rel="noopener">Help</a> · <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="credits.html" target="_blank" rel="noopener">Credits</a><br />No ads, no accounts. Everything stays on this device.</p>
         <button id="close-settings" class="primary" type="button">Done</button>
+      </section>
+
+      <!-- My top runs: the player's ten best endless runs, kept on this device only. -->
+      <section id="records" hidden aria-labelledby="records-title">
+        <h1 id="records-title">My top runs</h1>
+        <ol id="top-runs"></ol>
+        <p id="top-runs-empty" class="note">Your ten best runs will show here. Go and ski one!</p>
+        <p class="note">Kept on this device only.</p>
+        <button id="close-records" class="primary" type="button">Done</button>
       </section>
 
       <section id="shop" hidden>
