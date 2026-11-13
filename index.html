@@ -2,9 +2,10 @@
 <!--
   The website's front page (https://powderrushgame.com). tools/publish-website.sh puts it at the
   top of the site, with the game itself at /play/ and the Help, Privacy and Credits pages beside it.
-  On launch day: set APP_STORE_URL below to the game's App Store link, and swap the "coming soon"
-  button for Apple's official "Download on the App Store" badge (from Apple's marketing tools;
-  Apple only allows the badge once the app is on the store).
+  The App Store button is Apple's official "Download on the App Store" badge (img/app-store-badge.svg,
+  from Apple's marketing tools), linking to the store page with the website's campaign code (ct=website).
+  The store page went live as a pre-order on 12 November 2026; once the game is out (19 November),
+  take the "Pre-order now" line under the buttons away.
 -->
 <html lang="en">
   <head>
@@ -109,14 +110,14 @@
         transform: translateY(3px);
         box-shadow: 0 2px 0 var(--accent-edge);
       }
-      .button.store {
-        background: #111;
-        color: #fff;
-        box-shadow: 0 5px 0 #000;
+      .store-badge {
+        display: inline-flex;
+        align-items: center;
       }
-      .button.store[aria-disabled='true'] {
-        background: rgba(17, 17, 17, 0.75);
-        cursor: default;
+      .store-badge img {
+        display: block;
+        height: 60px;
+        width: auto;
       }
       .note {
         margin: 6px 0 0;
@@ -194,10 +195,10 @@
         <h1>Powder Rush</h1>
         <p class="tagline">Outrun the avalanche.</p>
         <div class="buttons">
-          <!-- Launch day: replace this with Apple's "Download on the App Store" badge linking to the app. -->
-          <a class="button store" id="app-store" aria-disabled="true">Coming soon to the App Store</a>
+          <a class="store-badge" id="app-store" href="https://apps.apple.com/app/apple-store/id6828711495?pt=129705238&amp;ct=website&amp;mt=8"><img src="img/app-store-badge.svg" alt="Download on the App Store" width="200" height="67" /></a>
           <a class="button play" href="play/">Play free in your browser</a>
         </div>
+        <p class="note"><strong>Pre-order now: out 19 November.</strong></p>
         <p class="note">For iPhone and iPad. No ads, no accounts, no data collected.</p>
       </header>
 
@@ -239,15 +240,5 @@
         <p>Apple, iPhone, iPad and App Store are trademarks of Apple Inc.</p>
       </footer>
     </main>
-    <script>
-      // Launch day: put the App Store link here (it looks like https://apps.apple.com/app/id1234567890).
-      const APP_STORE_URL = '';
-      if (APP_STORE_URL) {
-        const store = document.getElementById('app-store');
-        store.href = APP_STORE_URL;
-        store.textContent = 'Download on the App Store';
-        store.removeAttribute('aria-disabled');
-      }
-    </script>
   </body>
 </html>
